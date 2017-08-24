@@ -1,4 +1,6 @@
-package cothe.model;
+package cothe.messaging;
+
+import cothe.messaging.model.MessageStructure;
 
 /**
  * @author Jeongjin Kim

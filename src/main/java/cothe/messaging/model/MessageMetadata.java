@@ -1,4 +1,4 @@
-package cothe.model;
+package cothe.messaging.model;
 
 import lombok.Data;
 

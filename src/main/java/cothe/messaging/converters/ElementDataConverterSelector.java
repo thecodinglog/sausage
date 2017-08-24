@@ -1,4 +1,4 @@
-package cothe.model;
+package cothe.messaging.converters;
 
 public interface ElementDataConverterSelector {
     ElementDataConverter getElementDataConverter();

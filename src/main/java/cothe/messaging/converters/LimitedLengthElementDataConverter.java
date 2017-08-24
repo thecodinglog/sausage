@@ -1,4 +1,4 @@
-package cothe.model;
+package cothe.messaging.converters;
 
 import cothe.domain.ElementType;
 
