@@ -25,7 +25,7 @@ public class SerializedMessageBinderImpl implements MessageBinder<String, Map.En
     public Message<String> bind(MessageMetadata messageMetadata, Map<String, ?> dataSource, ListConcator<Map.Entry<String, String>> concator) {
 
 
-        ElementDataConverter converter = elementDataConverterSelector.getElementDataConverter();
+        ElementDataConverter converter = elementDataConverterSelector.getElementDataConverter(messageMetadata);
 
         if (converter == null) {
             throw new NullPointerException();

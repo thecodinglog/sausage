@@ -7,7 +7,7 @@ import java.util.Map;
  * @author Jeongjin Kim
  * @since 2017-08-24
  */
-public class SimpleValueConcator implements ListConcator<Map.Entry<String, String>> {
+public class SimpleMapEntryValueConcator implements ListConcator<Map.Entry<String, String>> {
     @Override
     public String concat(List<Map.Entry<String, String>> list) {
         StringBuilder stringBuilder = new StringBuilder();

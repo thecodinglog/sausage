@@ -1,4 +1,5 @@
 ## 이 프로젝트는 개발중입니다.
+## This project is being developed.
 
 ## 메시지 생성
 

@@ -3,7 +3,7 @@ package cothe.indi;
 import cothe.domain.ElementType;
 import cothe.messaging.bind.MessageBinder;
 import cothe.messaging.bind.SerializedMessageBinderImpl;
-import cothe.messaging.bind.SimpleValueConcator;
+import cothe.messaging.bind.SimpleMapEntryValueConcator;
 import cothe.messaging.converters.ElementDataConverterSelectorImpl;
 import cothe.messaging.model.Element;
 import cothe.messaging.model.MessageMetadata;
@@ -12,6 +12,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.springframework.messaging.Message;
 
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,9 +38,16 @@ public class ConvertTest {
         messageStructure.addElement(new Element("coilCnt", "코일수", ElementType.NUMBER, 3, 0, null));
         messageStructure.addElement(new Element("wkDh", "작업일시", ElementType.DATETIME, 14, 0, null));
         messageStructure.addElement(new Element("wkPsdDd", "작업전기일", ElementType.DATETIME, 8, 0, null));
+        messageStructure.addElement(new Element("schDd", "스케줄일", ElementType.DATETIME, 8, 0, null));
+        messageStructure.addElement(new Element("finSchDh", "종료스케줄일시", ElementType.DATETIME, 12, 0, null));
         messageStructure.addElement(new Element("cmpYn", "완료여부", ElementType.BOOLEAN, 1, 0, null));
         messageStructure.addElement(new Element("wkCost", "작업비용", ElementType.CURRENCY, 100, 0, "KRW"));
+        messageStructure.addElement(new Element("wkCostAvg", "평균비용", ElementType.CURRENCY, 100, 0, "KRW"));
         messageStructure.addElement(new Element("coilWgt", "코일중량", ElementType.NUMBER, 5, 0, "kg"));
+        messageStructure.addElement(new Element("coilThk", "코일두께", ElementType.NUMBER, 5, 3, "mm"));
+        messageStructure.addElement(new Element("coilWidth", "코일폭", ElementType.NUMBER, 7, 1, "mm"));
+        messageStructure.addElement(new Element("xOffset", "x축옵셋", ElementType.NUMBER, 10, 1, "mm"));
+        messageStructure.addElement(new Element("yOffset", "y축옵셋", ElementType.NUMBER, 10, 1, "mm"));
 
         messageMetadata.setDestinationSystemId("LGS");
         messageMetadata.setSourceSystemId("MES");
@@ -55,17 +63,24 @@ public class ConvertTest {
         dataSource.put("hoiUpDwnTp", "U");
         dataSource.put("bfLodLoc", "BBB1223");
         dataSource.put("coilCnt", "10");
-        //dataSource.put("wkDh", new GregorianCalendar(2016 + 1900, 3, 12, 24, 3, 11));
-        //dataSource.put("wkPsdDd", new GregorianCalendar(2016 + 1900, 3, 12));
+        dataSource.put("wkDh", new GregorianCalendar(2016 + 1900, 3, 12, 24, 3, 11));
+        dataSource.put("wkPsdDd", new GregorianCalendar(2016 + 1900, 3, 12));
+        dataSource.put("schDd", "20130305");
+        dataSource.put("finSchDh", "2013-03-05 12:34");
         dataSource.put("cmpYn", true);
         dataSource.put("wkCost", 34433);
         dataSource.put("coilWgt", 99320);
+        dataSource.put("wkCostAvg", 3393.23);
+        dataSource.put("coilThk", 1.233);
+        dataSource.put("coilWidth", "1032.3");
+        dataSource.put("xOffset", "-10.1");
+        dataSource.put("yOffset", -13.1);
     }
 
     @Test
     public void bind() {
         MessageBinder<String, Map.Entry<String, String>> messageBinder = new SerializedMessageBinderImpl(new ElementDataConverterSelectorImpl());
-        Message<String> message = messageBinder.bind(messageMetadata, dataSource, new SimpleValueConcator());
+        Message<String> message = messageBinder.bind(messageMetadata, dataSource, new SimpleMapEntryValueConcator());
         System.out.println(message.getPayload());
 
 

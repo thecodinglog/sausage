@@ -1,5 +1,5 @@
 package cothe.messaging.converters;
 
 public interface ElementDataConverterSelector {
-    ElementDataConverter getElementDataConverter();
+    ElementDataConverter getElementDataConverter(Object ...objects);
 }

@@ -1,4 +1,4 @@
 package cothe.messaging.converters.policies;
 
-public interface ErrorPolicy {
+public interface ErrorPolicy extends ConvertingPolicy {
 }
