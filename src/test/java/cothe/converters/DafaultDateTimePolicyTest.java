@@ -1,6 +1,6 @@
 package cothe.converters;
 
-import cothe.messaging.converters.policies.DatetimePolicies.DefaultDateTimePolicy;
+import cothe.messaging.converters.policies.datetimePolicies.DefaultDateTimePolicy;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -20,7 +20,7 @@ public class DafaultDateTimePolicyTest {
     @Test(expected = UnsupportedOperationException.class)
     public void stringTypeDateConvertForException(){
         DefaultDateTimePolicy defaultDateTimePolicy = new DefaultDateTimePolicy();
-        Assert.assertEquals("20171011023112000", defaultDateTimePolicy.convert("2017-10-1123112"));
+        Assert.assertEquals("20171011023112000", defaultDateTimePolicy.convert("20d171044rfd11231124ddddddd"));
 
 
     }

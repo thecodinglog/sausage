@@ -5,15 +5,15 @@ import cothe.messaging.converters.policies.ConvertingPolicy;
 import lombok.NonNull;
 import lombok.Setter;
 
-import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Jeongjin Kim
  * @since 2017-08-23
  */
-public class FixedLengthElementDataConverter implements ElementDataConverter {
+public class GeneralElementDataConverter implements ElementDataConverter {
     @Setter
-    HashMap<ElementType, ConvertingPolicy> policies;
+    private Map<ElementType, ConvertingPolicy> policies;
 
     @Override
     public String convert(@NonNull ElementType elementType, Object data) {

@@ -1,8 +1,6 @@
-package cothe.messaging.converters.policies.DatetimePolicies;
+package cothe.messaging.converters.policies.datetimePolicies;
 
 import cothe.messaging.converters.policies.ConvertingPolicy;
-
-import java.text.Format;
 
 /**
  * @author Jeongjin Kim

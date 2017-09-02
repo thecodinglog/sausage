@@ -4,13 +4,19 @@ import cothe.domain.ElementType;
 import cothe.messaging.bind.MessageBinder;
 import cothe.messaging.bind.SerializedMessageBinderImpl;
 import cothe.messaging.bind.SimpleMapEntryValueConcator;
+import cothe.messaging.converters.ElementDataConverterSelector;
 import cothe.messaging.converters.ElementDataConverterSelectorImpl;
 import cothe.messaging.model.Element;
 import cothe.messaging.model.MessageMetadata;
 import cothe.messaging.model.MessageStructure;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.messaging.Message;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.GregorianCalendar;
 import java.util.HashMap;
@@ -20,13 +26,25 @@ import java.util.Map;
  * @author Jeongjin Kim
  * @since 2017-08-24
  */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = "/applicationContext.xml")
 public class ConvertTest {
     MessageStructure messageStructure = new MessageStructure();
+    MessageStructure messageStructureG1 = new MessageStructure();
+    MessageStructure messageStructureG2 = new MessageStructure();
+
     MessageMetadata messageMetadata = new MessageMetadata();
     Map<String, Object> dataSource = new HashMap<>();
+    ApplicationContext applicationContext;
 
     @Before
     public void init() {
+        messageStructureG1.addElement(new Element("rmtlNo", "원재료번호",ElementType.STRING,9,0,null));
+        messageStructureG1.addElement(new Element("smtlRmtlNo", "공급업체원재료번호",ElementType.STRING,9,0,null));
+        messageStructureG2.addElement(new Element("lotNo", "Lot번호",ElementType.STRING,9,0,null));
+        messageStructureG2.addElement(new Element("subLotNo", "서브Lot번호",ElementType.STRING,9,0,null));
+
+
         messageStructure.addElement(new Element("cryMchNo", "운반기기번호", ElementType.STRING, 6, 0, null));
         messageStructure.addElement(new Element("cryMchTp", "운반기기구분", ElementType.STRING, 1, 0, null));
         messageStructure.addElement(new Element("wkKndDtlTp", "작업종류", ElementType.STRING, 2, 0, null));
@@ -41,13 +59,16 @@ public class ConvertTest {
         messageStructure.addElement(new Element("schDd", "스케줄일", ElementType.DATETIME, 8, 0, null));
         messageStructure.addElement(new Element("finSchDh", "종료스케줄일시", ElementType.DATETIME, 12, 0, null));
         messageStructure.addElement(new Element("cmpYn", "완료여부", ElementType.BOOLEAN, 1, 0, null));
-        messageStructure.addElement(new Element("wkCost", "작업비용", ElementType.CURRENCY, 100, 0, "KRW"));
-        messageStructure.addElement(new Element("wkCostAvg", "평균비용", ElementType.CURRENCY, 100, 0, "KRW"));
+        messageStructure.addElement(new Element("wkCost", "작업비용", ElementType.CURRENCY, 10, 0, "KRW"));
+        messageStructure.addElement(new Element("wkCostAvg", "평균비용", ElementType.CURRENCY, 10, 0, "KRW"));
         messageStructure.addElement(new Element("coilWgt", "코일중량", ElementType.NUMBER, 5, 0, "kg"));
         messageStructure.addElement(new Element("coilThk", "코일두께", ElementType.NUMBER, 5, 3, "mm"));
         messageStructure.addElement(new Element("coilWidth", "코일폭", ElementType.NUMBER, 7, 1, "mm"));
         messageStructure.addElement(new Element("xOffset", "x축옵셋", ElementType.NUMBER, 10, 1, "mm"));
         messageStructure.addElement(new Element("yOffset", "y축옵셋", ElementType.NUMBER, 10, 1, "mm"));
+
+
+
 
         messageMetadata.setDestinationSystemId("LGS");
         messageMetadata.setSourceSystemId("MES");
@@ -75,11 +96,19 @@ public class ConvertTest {
         dataSource.put("coilWidth", "1032.3");
         dataSource.put("xOffset", "-10.1");
         dataSource.put("yOffset", -13.1);
+
+        this.applicationContext = new ClassPathXmlApplicationContext("/applicationContext.xml");
     }
 
-    @Test
+   /* @Test
+    public void getBeanTest() {
+        ElementDataConverterSelector elementDataConverterSelector = applicationContext.getBean("elementDataSelector", ElementDataSelector.)
+    }
+
+*/    @Test
     public void bind() {
-        MessageBinder<String, Map.Entry<String, String>> messageBinder = new SerializedMessageBinderImpl(new ElementDataConverterSelectorImpl());
+
+        MessageBinder<String, Map.Entry<String, String>> messageBinder = applicationContext.getBean("messageBinder", MessageBinder.class);
         Message<String> message = messageBinder.bind(messageMetadata, dataSource, new SimpleMapEntryValueConcator());
         System.out.println(message.getPayload());
 

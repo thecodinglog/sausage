@@ -1,6 +1,9 @@
 package cothe.messaging.converters;
 
 import cothe.messaging.model.MessageMetadata;
+import lombok.Setter;
+
+import java.util.Map;
 
 /**
  * @author Jeongjin Kim
@@ -8,15 +11,14 @@ import cothe.messaging.model.MessageMetadata;
  */
 public class ElementDataConverterSelectorImpl implements ElementDataConverterSelector {
 
+    @Setter
+    private Map<String, ElementDataConverter> converterMapper;
+
     @Override
     public ElementDataConverter getElementDataConverter(Object... objects) {
         if (objects.length > 0) {
-            if(objects[0] instanceof MessageMetadata){
-                if(MessageMetadata.class.cast(objects[0]).getDestinationSystemId().equals("Sys01")){
-                    return new FixedLengthElementDataConverter();
-                }else if(MessageMetadata.class.cast(objects[0]).getDestinationSystemId().equals("Sys02")){
-                    return new LimitedLengthElementDataConverter();
-                }
+            if (objects[0] instanceof MessageMetadata) {
+                return converterMapper.get(MessageMetadata.class.cast(objects[0]).getDestinationSystemId());
             }
         }
 

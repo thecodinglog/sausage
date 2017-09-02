@@ -1,6 +1,7 @@
-package cothe.messaging.converters.policies.DatetimePolicies;
+package cothe.messaging.converters.policies.datetimePolicies;
 
-import java.text.DateFormat;
+import cothe.messaging.model.Element;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -12,7 +13,11 @@ import java.util.*;
 public class DefaultDateTimePolicy implements DateTimePolicy {
     @Override
     public String convert(Object data) {
+        return convert(data, null);
+    }
 
+    @Override
+    public String convert(Object data, Element element) {
         SimpleDateFormat toDateFormat = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 
         List<String> formats = Arrays.asList(
@@ -25,7 +30,7 @@ public class DefaultDateTimePolicy implements DateTimePolicy {
                 "yyyyMMddHHmmss",
                 "yyyyMMddHHmm",
                 "yyyyMMdd"
-                );
+        );
 
         if (data instanceof Calendar) {
             return toDateFormat.format(((Calendar) data).getTime());
@@ -35,7 +40,8 @@ public class DefaultDateTimePolicy implements DateTimePolicy {
             for (String format : formats) {
                 try {
                     return toDateFormat.format((new SimpleDateFormat(format)).parse((String) data));
-                } catch (ParseException e) {}
+                } catch (ParseException e) {
+                }
             }
             throw new UnsupportedOperationException("Fail to convert to DateTime of '" + data + "'");
         }

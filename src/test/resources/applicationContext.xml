@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+                            http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+                            http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"
+>
+    <bean id="booleanPolicy" class="cothe.messaging.converters.policies.booleanPolicies.YNBooleanPolicy"/>
+    <bean id="currencyPolicy" class="cothe.messaging.converters.policies.currencyPolicies.DefaultCurrencyPolicy"/>
+    <bean id="datetimePolicy" class="cothe.messaging.converters.policies.datetimePolicies.DefaultDateTimePolicy"/>
+    <bean id="numberPolicy" class="cothe.messaging.converters.policies.numberPolicies.PlainNumberPolicy"/>
+    <bean id="stringPolicy" class="cothe.messaging.converters.policies.stringPolicies.PlainStringPolicy"/>
+
+    <bean id="elementDataConverter" class="cothe.messaging.converters.policies.stringPolicies.PlainStringPolicy"/>
+
+    <bean id="fixedLengthElementDataConverter" class="cothe.messaging.converters.GeneralElementDataConverter">
+        <property name="policies" >
+            <map key-type="cothe.domain.ElementType" value-type="cothe.messaging.converters.policies.ConvertingPolicy">
+                <entry key="BOOLEAN" value-ref="booleanPolicy"/>
+                <entry key="CURRENCY" value-ref="currencyPolicy"/>
+                <entry key="DATETIME" value-ref="datetimePolicy"/>
+                <entry key="NUMBER" value-ref="numberPolicy"/>
+                <entry key="STRING" value-ref="stringPolicy"/>
+            </map>
+        </property>
+    </bean>
+    <bean id="delimiterElementDataConverter" class="cothe.messaging.converters.GeneralElementDataConverter">
+        <property name="policies" >
+            <map key-type="cothe.domain.ElementType" value-type="cothe.messaging.converters.policies.ConvertingPolicy">
+                <entry key="BOOLEAN" value-ref="booleanPolicy"/>
+                <entry key="CURRENCY" value-ref="currencyPolicy"/>
+                <entry key="DATETIME" value-ref="datetimePolicy"/>
+                <entry key="NUMBER" value-ref="numberPolicy"/>
+                <entry key="STRING" value-ref="stringPolicy"/>
+            </map>
+        </property>
+    </bean>
+
+
+    <bean id="elementDataConverterSelector" class="cothe.messaging.converters.ElementDataConverterSelectorImpl">
+        <property name="converterMapper">
+            <map key-type="java.lang.String" value-type="cothe.messaging.converters.ElementDataConverter">
+                <entry key="LGS" value-ref="fixedLengthElementDataConverter"/>
+                <entry key="MES" value-ref="delimiterElementDataConverter"/>
+            </map>
+        </property>
+    </bean>
+
+
+    <bean id="messageBinder" class="cothe.messaging.bind.SerializedMessageBinderImpl">
+        <constructor-arg name="elementDataConverterSelector" ref="elementDataConverterSelector"/>
+    </bean>
+
+</beans>

@@ -6,5 +6,6 @@ public enum ElementType {
     DATETIME,
     BOOLEAN,
     CURRENCY,
-    BINARY
+    BINARY,
+    GROUP
 }

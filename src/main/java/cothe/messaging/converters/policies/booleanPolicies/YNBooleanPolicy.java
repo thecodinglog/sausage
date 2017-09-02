@@ -1,5 +1,7 @@
 package cothe.messaging.converters.policies.booleanPolicies;
 
+import cothe.messaging.model.Element;
+
 /**
  * @author Jeongjin Kim
  * @since 2017-08-25
@@ -7,6 +9,12 @@ package cothe.messaging.converters.policies.booleanPolicies;
 public class YNBooleanPolicy implements BooleanPolicy {
     @Override
     public String convert(Object data) {
+        return convert(data, null);
+    }
+
+    @Override
+    public String convert(Object data, Element element) {
+
         String input = data.toString();
         switch (input.toLowerCase()) {
             case "true":
@@ -20,7 +28,7 @@ public class YNBooleanPolicy implements BooleanPolicy {
             case "0":
                 return "N";
             default:
-                    throw new UnsupportedOperationException();
+                throw new UnsupportedOperationException();
         }
     }
 }

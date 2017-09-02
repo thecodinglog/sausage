@@ -11,7 +11,7 @@ public class SimpleMapEntryValueConcator implements ListConcator<Map.Entry<Strin
     @Override
     public String concat(List<Map.Entry<String, String>> list) {
         StringBuilder stringBuilder = new StringBuilder();
-        list.forEach(e -> stringBuilder.append(e.getValue()));
+        list.parallelStream().forEach(e -> stringBuilder.append((e.getValue()) + "|"));
 
         return stringBuilder.toString();
     }
