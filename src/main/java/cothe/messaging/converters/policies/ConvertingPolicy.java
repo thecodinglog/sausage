@@ -1,6 +1,6 @@
 package cothe.messaging.converters.policies;
 
-import cothe.messaging.model.Element;
+import cothe.messaging.model.DataElement;
 
 /**
  * @author Jeongjin Kim
@@ -8,5 +8,5 @@ import cothe.messaging.model.Element;
  */
 public interface ConvertingPolicy {
     String convert(Object data);
-    String convert(Object data, Element element);
+    String convert(Object data, DataElement dataElement);
 }

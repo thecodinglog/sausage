@@ -1,6 +1,6 @@
 package cothe.messaging.converters.policies.datetimePolicies;
 
-import cothe.messaging.model.Element;
+import cothe.messaging.model.DataElement;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,7 +17,7 @@ public class DefaultDateTimePolicy implements DateTimePolicy {
     }
 
     @Override
-    public String convert(Object data, Element element) {
+    public String convert(Object data, DataElement dataElement) {
         SimpleDateFormat toDateFormat = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 
         List<String> formats = Arrays.asList(

@@ -7,5 +7,5 @@ public enum ElementType {
     BOOLEAN,
     CURRENCY,
     BINARY,
-    GROUP
+    STRUCTURE
 }

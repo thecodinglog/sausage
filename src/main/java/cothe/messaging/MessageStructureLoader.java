@@ -1,11 +1,11 @@
 package cothe.messaging;
 
-import cothe.messaging.model.MessageStructure;
+import cothe.messaging.model.StructureElement;
 
 /**
  * @author Jeongjin Kim
  * @since 2017-08-23
  */
 public interface MessageStructureLoader {
-    MessageStructure getMessageStructure(String messageStructureId);
+    StructureElement getMessageStructure(String messageStructureId);
 }

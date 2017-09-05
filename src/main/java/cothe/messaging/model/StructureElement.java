@@ -1,16 +1,17 @@
 package cothe.messaging.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import cothe.domain.ElementType;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class MessageStructure implements Iterable<Element>, ElementMember {
-    @Setter
-    @Getter
-    private String structureId;
+public @Data
+class StructureElement implements Iterable<Element>, Element {
+    private String id;
+    private String name;
+    private int length;
 
     private List<Element> elements = new ArrayList<>();
 
@@ -22,4 +23,11 @@ public class MessageStructure implements Iterable<Element>, ElementMember {
     public Iterator<Element> iterator() {
         return elements.iterator();
     }
+
+    @Override
+    public ElementType getElementType() {
+        return ElementType.STRUCTURE;
+    }
+
+
 }

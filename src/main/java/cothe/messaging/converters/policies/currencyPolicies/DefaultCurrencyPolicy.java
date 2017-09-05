@@ -1,6 +1,6 @@
 package cothe.messaging.converters.policies.currencyPolicies;
 
-import cothe.messaging.model.Element;
+import cothe.messaging.model.DataElement;
 
 import java.text.NumberFormat;
 import java.util.Locale;
@@ -16,7 +16,7 @@ public class DefaultCurrencyPolicy implements CurrencyPolicy {
     }
 
     @Override
-    public String convert(Object data, Element element) {
+    public String convert(Object data, DataElement dataElement) {
 
         String input = data.toString();
 
