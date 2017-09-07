@@ -7,6 +7,5 @@ import cothe.messaging.model.DataElement;
  * @since 2017-08-24
  */
 public interface ConvertingPolicy {
-    String convert(Object data);
     String convert(Object data, DataElement dataElement);
 }

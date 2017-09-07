@@ -8,11 +8,6 @@ import cothe.messaging.model.DataElement;
  */
 public class PlainStringPolicy implements StringPolicy {
     @Override
-    public String convert(Object data) {
-        return convert(data, null);
-    }
-
-    @Override
     public String convert(Object data, DataElement dataElement) {
         return data.toString();
     }

@@ -4,6 +4,7 @@ import cothe.domain.ElementType;
 import cothe.messaging.SerializedMessage;
 import cothe.messaging.converters.ElementDataConverter;
 import cothe.messaging.converters.ElementDataConverterSelector;
+import cothe.messaging.model.DataElement;
 import cothe.messaging.model.Element;
 import cothe.messaging.model.MessageMetadata;
 import cothe.messaging.model.StructureElement;
@@ -66,7 +67,7 @@ public class SerializedMessageBinderImpl implements MessageBinder<String, Map.En
                     if (element.getElementType() == ElementType.STRUCTURE) {
                         convertRouting((StructureElement) element, dataSource, converter, element, stringJoiner);
                     } else {
-                        String value = converter.convert(element.getElementType(), dataSource.get(parentElement.getId() + "_" + element.getId() + "_" + String.valueOf(i)));
+                        String value = converter.convert((DataElement)element, dataSource.get(parentElement.getId() + "_" + element.getId() + "_" + String.valueOf(i)));
                         stringJoiner.add(value == null ? "" : value);
                     }
                 }
@@ -76,7 +77,7 @@ public class SerializedMessageBinderImpl implements MessageBinder<String, Map.En
                 if (element.getElementType() == ElementType.STRUCTURE) {
                     convertRouting((StructureElement) element, dataSource, converter, element, stringJoiner);
                 } else {
-                    String value = converter.convert(element.getElementType(), dataSource.get(element.getId()));
+                    String value = converter.convert((DataElement)element, dataSource.get(element.getId()));
                     stringJoiner.add(value == null ? "" : value);
                 }
             }

@@ -15,4 +15,8 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.16.18'
     compile 'org.springframework.integration:spring-integration-core:4.3.11.RELEASE'
     testCompile 'org.springframework:spring-test:4.3.8.RELEASE'
+
+    compile 'org.apache.commons:commons-lang3:3.6'
+
+
 }

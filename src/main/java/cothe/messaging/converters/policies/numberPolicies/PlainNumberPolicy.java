@@ -8,11 +8,6 @@ import cothe.messaging.model.DataElement;
  */
 public class PlainNumberPolicy implements NumberPolicy {
     @Override
-    public String convert(Object data) {
-        return convert(data, null);
-    }
-
-    @Override
     public String convert(Object data, DataElement dataElement) {
         return data.toString();
     }
