@@ -92,9 +92,9 @@ public class ConvertTest {
         dataSource.put("schDd", "20130305");
         dataSource.put("finSchDh", "2013-03-05 12:34");
         dataSource.put("cmpYn", true);
-        dataSource.put("wkCost", 34433);
-        dataSource.put("coilWgt", 99320);
+        //dataSource.put("wkCost", 34433);
         dataSource.put("wkCostAvg", 3393.23);
+        dataSource.put("coilWgt", 99320);
         dataSource.put("coilThk", 1.233);
         dataSource.put("coilWidth", "1032.3");
         dataSource.put("xOffset", "-10.1");

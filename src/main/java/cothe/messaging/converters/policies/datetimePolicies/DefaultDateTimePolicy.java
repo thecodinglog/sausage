@@ -1,5 +1,6 @@
 package cothe.messaging.converters.policies.datetimePolicies;
 
+import cothe.messaging.exceptions.UnsupportedFormatException;
 import cothe.messaging.model.DataElement;
 
 import java.text.ParseException;
@@ -69,7 +70,7 @@ public class DefaultDateTimePolicy implements DateTimePolicy {
 
         }
         if (returnDatetime == null) {
-            throw new UnsupportedOperationException("Fail to convert to DateTime of '" + data + "'");
+            throw new UnsupportedFormatException("Fail to convert to DateTime of '" + data + "'");
         }
 
 
