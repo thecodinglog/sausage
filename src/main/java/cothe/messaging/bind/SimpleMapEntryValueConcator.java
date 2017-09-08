@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
  * @author Jeongjin Kim
  * @since 2017-08-24
  */
+@Deprecated
 public class SimpleMapEntryValueConcator implements ListConcator<Map.Entry<String, String>> {
     @Override
     public String concat(List<Map.Entry<String, String>> list) {
