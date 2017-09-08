@@ -29,10 +29,10 @@ import org.junit.runners.Parameterized;
 public abstract class ParameterizedPolicyTest {
     protected ConvertingPolicy convertingPolicy;
 
-    protected Object input;
-    protected int inputLength;
-    protected String expected;
-    protected int precision;
+    private Object input;
+    private int inputLength;
+    private String expected;
+    private int precision;
 
     public ParameterizedPolicyTest(Object input, int inputLength, int precision, String expected) {
         this.input = input;

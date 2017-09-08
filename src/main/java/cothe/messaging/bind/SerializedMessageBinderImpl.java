@@ -14,9 +14,8 @@ import org.springframework.messaging.Message;
 import org.springframework.messaging.MessageHeaders;
 
 import java.util.*;
-import java.util.function.Function;
 
-public class SerializedMessageBinderImpl implements MessageBinder<String, Map.Entry<String, String>> {
+public class SerializedMessageBinderImpl implements MessageBinder<String> {
     @Setter
     private ElementDataConverterSelector elementDataConverterSelector;
 
@@ -26,7 +25,7 @@ public class SerializedMessageBinderImpl implements MessageBinder<String, Map.En
 
 
     @Override
-    public Message<String> bind(MessageMetadata messageMetadata, Map<String, ?> dataSource, CharSequence delimiter) {
+    public Message<String> bind(MessageMetadata messageMetadata, Map<String, ?> dataSource) {
         ElementDataConverter converter = elementDataConverterSelector.getElementDataConverter(messageMetadata);
 
         if (converter == null) {
@@ -34,9 +33,7 @@ public class SerializedMessageBinderImpl implements MessageBinder<String, Map.En
 
         }
 
-        List<Map.Entry<String, String>> temp = new ArrayList<>();
-
-        StringJoiner stringJoiner = new StringJoiner(delimiter);
+        StringJoiner stringJoiner = new StringJoiner(converter.getDelimiter());
 
         convertRouting(messageMetadata.getStructureElement(), dataSource, converter, null, stringJoiner);
 
@@ -45,9 +42,7 @@ public class SerializedMessageBinderImpl implements MessageBinder<String, Map.En
         header.put("destination", messageMetadata.getDestinationSystemId());
         MessageHeaders messageHeaders = new MessageHeaders(header);
 
-        Message<String> message = new SerializedMessage(stringJoiner.toString(), messageHeaders);
-
-        return message;
+        return new SerializedMessage(stringJoiner.toString(), messageHeaders);
 
     }
 

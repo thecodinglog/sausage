@@ -10,7 +10,7 @@ import org.junit.Test;
 public class ApacheStringUtilTests {
     @Test
     public void padding(){
-        System.out.println(StringUtils.rightPad("ha", 10));;
+        System.out.println(StringUtils.rightPad("ha", 10));
 
 
     }

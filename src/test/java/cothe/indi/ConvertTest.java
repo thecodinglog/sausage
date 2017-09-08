@@ -1,7 +1,10 @@
 package cothe.indi;
 
+import cothe.domain.ElementType;
 import cothe.messaging.bind.MessageBinder;
+import cothe.messaging.converters.ElementDataConverter;
 import cothe.messaging.model.DataElement;
+import cothe.messaging.model.Element;
 import cothe.messaging.model.MessageMetadata;
 import cothe.messaging.model.StructureElement;
 import org.junit.Before;
@@ -16,6 +19,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.StringJoiner;
 
 import static cothe.domain.ElementType.*;
 
@@ -26,12 +30,12 @@ import static cothe.domain.ElementType.*;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "/applicationContext.xml")
 public class ConvertTest {
-    private StructureElement structureElement = new StructureElement();
-    private StructureElement structureElementG1 = new StructureElement();
-    private StructureElement structureElementG2 = new StructureElement();
+    private final StructureElement structureElement = new StructureElement();
+    private final StructureElement structureElementG1 = new StructureElement();
+    private final StructureElement structureElementG2 = new StructureElement();
 
-    private MessageMetadata messageMetadata = new MessageMetadata();
-    private Map<String, Object> dataSource = new HashMap<>();
+    private final MessageMetadata messageMetadata = new MessageMetadata();
+    private final Map<String, Object> dataSource = new HashMap<>();
     private ApplicationContext applicationContext;
 
     @Before
@@ -119,10 +123,46 @@ public class ConvertTest {
     @Test
     public void bind() {
 
-        MessageBinder<String, Map.Entry<String, String>> messageBinder = applicationContext.getBean("messageBinder", MessageBinder.class);
-        Message<String> message = messageBinder.bind(messageMetadata, dataSource, "|");
+        MessageBinder messageBinder = applicationContext.getBean("messageBinder", MessageBinder.class);
+        Message message = messageBinder.<String>bind(messageMetadata, dataSource);
         System.out.println(message.getPayload());
 
 
+    }
+
+
+    @Test
+    public void messageSizeCheck() {
+        System.out.println(travelElementStructure(structureElement, null));
+
+    }
+
+    private int travelElementStructure(
+            StructureElement structureElement,
+            Element parentElement
+    ) {
+        int size = 0;
+        if (parentElement != null) {
+            for (int i = 0; i < parentElement.getLength(); i++) {
+                for (Element element : structureElement) {
+                    if (element.getElementType() == ElementType.STRUCTURE) {
+                        size += travelElementStructure((StructureElement) element, element);
+                    } else {
+                        size += element.getLength();
+                    }
+                }
+            }
+        } else {
+            for (Element element : structureElement) {
+                if (element.getElementType() == ElementType.STRUCTURE) {
+                    size += travelElementStructure((StructureElement) element, element);
+                } else {
+                    size += element.getLength();
+                }
+            }
+
+        }
+
+        return size;
     }
 }

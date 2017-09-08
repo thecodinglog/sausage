@@ -5,7 +5,10 @@ import cothe.messaging.model.DataElement;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 /**
  * @author Jeongjin Kim
@@ -64,7 +67,7 @@ public class DefaultDateTimePolicy implements DateTimePolicy {
                 try {
                     returnDatetime = toDateFormat.format((new SimpleDateFormat(format)).parse((String) data));
                     break;
-                } catch (ParseException e) {
+                } catch (ParseException ignored) {
                 }
             }
 

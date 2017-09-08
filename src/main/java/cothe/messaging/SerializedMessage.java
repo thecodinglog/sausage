@@ -8,8 +8,8 @@ import org.springframework.messaging.MessageHeaders;
  * @since 2017-08-23
  */
 public class SerializedMessage implements Message<String> {
-    private String payload;
-    private MessageHeaders messageHeaders;
+    private final String payload;
+    private final MessageHeaders messageHeaders;
 
     public SerializedMessage(String payload, MessageHeaders messageHeaders) {
         this.payload = payload;

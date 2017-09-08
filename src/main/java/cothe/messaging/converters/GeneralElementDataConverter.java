@@ -14,7 +14,14 @@ import java.util.Map;
  */
 public class GeneralElementDataConverter implements ElementDataConverter {
     @Setter
+    private CharSequence delimiter;
+
+    @Setter
     private Map<ElementType, ConvertingPolicy> policies;
+
+    public GeneralElementDataConverter(CharSequence delimiter) {
+        this.delimiter = delimiter;
+    }
 
     @Override
     public String convert(@NonNull DataElement element, Object data) {
@@ -27,5 +34,10 @@ public class GeneralElementDataConverter implements ElementDataConverter {
         } else {
             return convertingPolicy.convert(data,element);
         }
+    }
+
+    @Override
+    public CharSequence getDelimiter() {
+        return delimiter;
     }
 }

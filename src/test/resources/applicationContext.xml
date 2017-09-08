@@ -13,20 +13,30 @@
     <bean id="numberPolicy" class="cothe.messaging.converters.policies.numberPolicies.PlainNumberPolicy"/>
     <bean id="stringPolicy" class="cothe.messaging.converters.policies.stringPolicies.PlainStringPolicy"/>
 
+    <bean id="fixedLengthBooleanPolicy" class="cothe.messaging.converters.policies.booleanPolicies.FixedLengthRightPaddingYNBooleanPolicy"/>
+    <bean id="fixedLengthCurrencyPolicy" class="cothe.messaging.converters.policies.currencyPolicies.FixedLengthLeftPaddingCurrencyPolicy"/>
+    <bean id="fixedLengthDatetimePolicy" class="cothe.messaging.converters.policies.datetimePolicies.FixedLengthRightPaddingDateTimePolicy"/>
+    <bean id="fixedLengthNumberPolicy" class="cothe.messaging.converters.policies.numberPolicies.FixedLengthLeftPaddingNumberPolicy"/>
+    <bean id="fixedLengthStringPolicy" class="cothe.messaging.converters.policies.stringPolicies.FixedByteLengthRightPaddingStringPolicy">
+        <property name="charset" value="euc-kr"/>
+    </bean>
+
     <bean id="elementDataConverter" class="cothe.messaging.converters.policies.stringPolicies.PlainStringPolicy"/>
 
     <bean id="fixedLengthElementDataConverter" class="cothe.messaging.converters.GeneralElementDataConverter">
+        <constructor-arg value=""/>
         <property name="policies" >
             <map key-type="cothe.domain.ElementType" value-type="cothe.messaging.converters.policies.ConvertingPolicy">
-                <entry key="BOOLEAN" value-ref="booleanPolicy"/>
-                <entry key="CURRENCY" value-ref="currencyPolicy"/>
-                <entry key="DATETIME" value-ref="datetimePolicy"/>
-                <entry key="NUMBER" value-ref="numberPolicy"/>
-                <entry key="STRING" value-ref="stringPolicy"/>
+                <entry key="BOOLEAN" value-ref="fixedLengthBooleanPolicy"/>
+                <entry key="CURRENCY" value-ref="fixedLengthCurrencyPolicy"/>
+                <entry key="DATETIME" value-ref="fixedLengthDatetimePolicy"/>
+                <entry key="NUMBER" value-ref="fixedLengthNumberPolicy"/>
+                <entry key="STRING" value-ref="fixedLengthStringPolicy"/>
             </map>
         </property>
     </bean>
     <bean id="delimiterElementDataConverter" class="cothe.messaging.converters.GeneralElementDataConverter">
+        <constructor-arg value="|"/>
         <property name="policies" >
             <map key-type="cothe.domain.ElementType" value-type="cothe.messaging.converters.policies.ConvertingPolicy">
                 <entry key="BOOLEAN" value-ref="booleanPolicy"/>

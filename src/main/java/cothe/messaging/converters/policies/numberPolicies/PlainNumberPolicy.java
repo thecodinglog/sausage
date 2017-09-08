@@ -4,7 +4,6 @@ import cothe.messaging.model.DataElement;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.NumberFormat;
 
 /**
  * @author Jeongjin Kim
@@ -17,11 +16,11 @@ public class PlainNumberPolicy implements NumberPolicy {
             return "";
         }
 
-        int precesion = dataElement.getPrecision();
+        int precision = dataElement.getPrecision();
         double number = Double.parseDouble(data.toString());
-        if (precesion > 0) {
+        if (precision > 0) {
             return BigDecimal.valueOf(number)
-                    .setScale(precesion, RoundingMode.DOWN)
+                    .setScale(precision, RoundingMode.DOWN)
                     .toString();
         } else {
             return String.valueOf((int) number);
