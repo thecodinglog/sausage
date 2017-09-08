@@ -18,17 +18,6 @@ public class GeneralElementDataConverter implements ElementDataConverter {
 
     @Override
     public String convert(@NonNull DataElement element, Object data) {
-/*
-        if(data == null){
-            return null;
-        }
-        
-        if(policies == null){
-            return data.toString();
-        }
-*/
-
-
         ConvertingPolicy convertingPolicy = policies.get(element.getElementType());
         if (convertingPolicy == null) {
             if(data == null){

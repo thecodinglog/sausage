@@ -27,8 +27,6 @@ public class SerializedMessageBinderImpl implements MessageBinder<String, Map.En
 
     @Override
     public Message<String> bind(MessageMetadata messageMetadata, Map<String, ?> dataSource, CharSequence delimiter) {
-
-
         ElementDataConverter converter = elementDataConverterSelector.getElementDataConverter(messageMetadata);
 
         if (converter == null) {
