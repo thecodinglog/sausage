@@ -11,8 +11,9 @@ public class PlainStringPolicy implements StringPolicy {
     public String convert(Object data, DataElement dataElement) {
         if(data == null){
             return "";
-        }else {
-            return data.toString();
         }
+
+        return data.toString();
+
     }
 }
