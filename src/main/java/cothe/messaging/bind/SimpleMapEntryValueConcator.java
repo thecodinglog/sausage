@@ -2,6 +2,7 @@ package cothe.messaging.bind;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author Jeongjin Kim
@@ -10,9 +11,6 @@ import java.util.Map;
 public class SimpleMapEntryValueConcator implements ListConcator<Map.Entry<String, String>> {
     @Override
     public String concat(List<Map.Entry<String, String>> list) {
-        StringBuilder stringBuilder = new StringBuilder();
-        list.parallelStream().forEach(e -> stringBuilder.append((e.getValue()) + "|"));
-
-        return stringBuilder.toString();
+        return list.stream().map(Map.Entry::getValue).collect(Collectors.joining("|"));
     }
 }

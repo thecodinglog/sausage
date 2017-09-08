@@ -13,6 +13,6 @@ public @Data class MessageMetadata {
     private String destinationSystemId;
     private String destinationServiceId;
 
-    private MessageStructure messageStructure;
+    private StructureElement structureElement;
 
 }

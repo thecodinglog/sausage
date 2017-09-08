@@ -1,6 +1,7 @@
 package cothe.messaging.converters.policies.datetimePolicies;
 
-import cothe.messaging.model.Element;
+import cothe.messaging.exceptions.UnsupportedFormatException;
+import cothe.messaging.model.DataElement;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,12 +13,32 @@ import java.util.*;
  */
 public class DefaultDateTimePolicy implements DateTimePolicy {
     @Override
-    public String convert(Object data) {
-        return convert(data, null);
-    }
+    public String convert(Object data, DataElement dataElement) {
+        if (data == null) {
+            return "";
+        }
 
-    @Override
-    public String convert(Object data, Element element) {
+        int substringLength;
+
+        if (dataElement.getLength() >= 4 && dataElement.getLength() < 6) {
+            substringLength = 4;
+        } else if (dataElement.getLength() >= 6 && dataElement.getLength() < 8) {
+            substringLength = 6;
+        } else if (dataElement.getLength() >= 8 && dataElement.getLength() < 10) {
+            substringLength = 8;
+        } else if (dataElement.getLength() >= 10 && dataElement.getLength() < 12) {
+            substringLength = 10;
+        } else if (dataElement.getLength() >= 12 && dataElement.getLength() < 14) {
+            substringLength = 12;
+        } else if (dataElement.getLength() >= 14 && dataElement.getLength() < 17) {
+            substringLength = 14;
+        } else if (dataElement.getLength() >= 17) {
+            substringLength = 17;
+        } else {
+            substringLength = 0;
+        }
+
+
         SimpleDateFormat toDateFormat = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 
         List<String> formats = Arrays.asList(
@@ -32,20 +53,27 @@ public class DefaultDateTimePolicy implements DateTimePolicy {
                 "yyyyMMdd"
         );
 
+        String returnDatetime = null;
+
         if (data instanceof Calendar) {
-            return toDateFormat.format(((Calendar) data).getTime());
+            returnDatetime = toDateFormat.format(((Calendar) data).getTime());
         } else if (data instanceof Date) {
-            return toDateFormat.format(data);
+            returnDatetime = toDateFormat.format(data);
         } else if (data instanceof String) {
             for (String format : formats) {
                 try {
-                    return toDateFormat.format((new SimpleDateFormat(format)).parse((String) data));
+                    returnDatetime = toDateFormat.format((new SimpleDateFormat(format)).parse((String) data));
+                    break;
                 } catch (ParseException e) {
                 }
             }
-            throw new UnsupportedOperationException("Fail to convert to DateTime of '" + data + "'");
+
+        }
+        if (returnDatetime == null) {
+            throw new UnsupportedFormatException("Fail to convert to DateTime of '" + data + "'");
         }
 
-        return data.toString();
+
+        return returnDatetime.substring(0, substringLength);
     }
 }

@@ -1,7 +1,7 @@
 package cothe.messaging.converters;
 
-import cothe.domain.ElementType;
+import cothe.messaging.model.DataElement;
 
 public interface ElementDataConverter {
-    String convert(ElementType elementType, Object data);
+    String convert(DataElement element, Object data);
 }

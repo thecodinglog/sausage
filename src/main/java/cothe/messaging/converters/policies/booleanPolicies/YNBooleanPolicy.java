@@ -1,6 +1,6 @@
 package cothe.messaging.converters.policies.booleanPolicies;
 
-import cothe.messaging.model.Element;
+import cothe.messaging.model.DataElement;
 
 /**
  * @author Jeongjin Kim
@@ -8,12 +8,11 @@ import cothe.messaging.model.Element;
  */
 public class YNBooleanPolicy implements BooleanPolicy {
     @Override
-    public String convert(Object data) {
-        return convert(data, null);
-    }
+    public String convert(Object data, DataElement dataElement) {
 
-    @Override
-    public String convert(Object data, Element element) {
+        if(data == null){
+            return "";
+        }
 
         String input = data.toString();
         switch (input.toLowerCase()) {

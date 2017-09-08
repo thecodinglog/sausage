@@ -1,6 +1,6 @@
 package cothe.messaging;
 
-import cothe.messaging.model.MessageStructure;
+import cothe.messaging.model.StructureElement;
 
 import java.util.Map;
 
@@ -9,10 +9,10 @@ import java.util.Map;
  * @since 2017-08-23
  */
 public class MessageStructureLoaderImpl implements MessageStructureLoader {
-    private Map<String, MessageStructure> cache;
+    private Map<String, StructureElement> cache;
 
     @Override
-    public MessageStructure getMessageStructure(String messageStructureId) {
+    public StructureElement getMessageStructure(String messageStructureId) {
 
         return cache.get(messageStructureId);
     }

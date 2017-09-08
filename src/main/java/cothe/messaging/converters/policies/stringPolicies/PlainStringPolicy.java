@@ -1,6 +1,6 @@
 package cothe.messaging.converters.policies.stringPolicies;
 
-import cothe.messaging.model.Element;
+import cothe.messaging.model.DataElement;
 
 /**
  * @author Jeongjin Kim
@@ -8,12 +8,11 @@ import cothe.messaging.model.Element;
  */
 public class PlainStringPolicy implements StringPolicy {
     @Override
-    public String convert(Object data) {
-        return convert(data, null);
-    }
-
-    @Override
-    public String convert(Object data, Element element) {
-        return data.toString();
+    public String convert(Object data, DataElement dataElement) {
+        if(data == null){
+            return "";
+        }else {
+            return data.toString();
+        }
     }
 }
