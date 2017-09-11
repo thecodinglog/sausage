@@ -1,6 +1,5 @@
 package cothe.messaging.model;
 
-import cothe.domain.ElementType;
 import lombok.Data;
 
 public @Data

@@ -1,6 +1,6 @@
 package cothe.converters;
 
-import cothe.messaging.converters.policies.datetimePolicies.DefaultDateTimePolicy;
+import cothe.messaging.converter.policies.datetimePolicies.DefaultDateTimePolicy;
 import cothe.messaging.exceptions.UnsupportedFormatException;
 import cothe.messaging.model.DataElement;
 import org.junit.Assert;

@@ -1,8 +1,7 @@
 package cothe.indi;
 
-import cothe.domain.ElementType;
-import cothe.messaging.bind.MessageBinder;
-import cothe.messaging.converters.ElementDataConverter;
+import cothe.messaging.model.ElementType;
+import cothe.messaging.binder.MessageBinder;
 import cothe.messaging.model.DataElement;
 import cothe.messaging.model.Element;
 import cothe.messaging.model.MessageMetadata;
@@ -19,9 +18,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.StringJoiner;
 
-import static cothe.domain.ElementType.*;
+import static cothe.messaging.model.ElementType.*;
 
 /**
  * @author Jeongjin Kim
@@ -40,17 +38,19 @@ public class ConvertTest {
 
     @Before
     public void init() {
-        structureElementG1.addElement(new DataElement("rmtlNo", "원재료번호", STRING, 9, 0, null));
-        structureElementG1.addElement(new DataElement("smtlRmtlNo", "공급업체원재료번호", STRING, 9, 0, null));
-        structureElementG1.setId("rmtlNoList");
-        structureElementG1.setName("원재료리스트");
-        structureElementG1.setLength(10);
-
         structureElementG2.addElement(new DataElement("lotNo", "Lot번호", STRING, 9, 0, null));
         structureElementG2.addElement(new DataElement("subLotNo", "서브Lot번호", STRING, 9, 0, null));
         structureElementG2.setId("lotList");
         structureElementG2.setName("Lot리스트");
         structureElementG2.setLength(5);
+
+        structureElementG1.addElement(new DataElement("rmtlNo", "원재료번호", STRING, 9, 0, null));
+        structureElementG1.addElement(new DataElement("smtlRmtlNo", "공급업체원재료번호", STRING, 9, 0, null));
+        structureElementG1.addElement(structureElementG2);
+        structureElementG1.setId("rmtlNoList");
+        structureElementG1.setName("원재료리스트");
+        structureElementG1.setLength(10);
+
 
         structureElement.addElement(new DataElement("cryMchNo", "운반기기번호", STRING, 6, 0, null));
         structureElement.addElement(new DataElement("cryMchTp", "운반기기구분", STRING, 1, 0, null));
@@ -68,14 +68,17 @@ public class ConvertTest {
         structureElement.addElement(new DataElement("cmpYn", "완료여부", BOOLEAN, 1, 0, null));
         structureElement.addElement(new DataElement("wkCost", "작업비용", CURRENCY, 10, 0, "KRW"));
         structureElement.addElement(new DataElement("wkCostAvg", "평균비용", CURRENCY, 10, 0, "KRW"));
+
+        structureElement.addElement(structureElementG1);
+
         structureElement.addElement(new DataElement("coilWgt", "코일중량", NUMBER, 5, 0, "kg"));
         structureElement.addElement(new DataElement("coilThk", "코일두께", NUMBER, 5, 3, "mm"));
         structureElement.addElement(new DataElement("coilWidth", "코일폭", NUMBER, 7, 1, "mm"));
         structureElement.addElement(new DataElement("xOffset", "x축옵셋", NUMBER, 10, 1, "mm"));
         structureElement.addElement(new DataElement("yOffset", "y축옵셋", NUMBER, 10, 1, "mm"));
 
-        structureElement.addElement(structureElementG1);
-        structureElement.addElement(structureElementG2);
+        //structureElement.addElement(structureElementG1);
+        //structureElement.addElement(structureElementG2);
 
         messageMetadata.setDestinationSystemId("LGS");
         messageMetadata.setSourceSystemId("MES");

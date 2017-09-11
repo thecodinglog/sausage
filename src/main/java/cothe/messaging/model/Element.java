@@ -1,7 +1,5 @@
 package cothe.messaging.model;
 
-import cothe.domain.ElementType;
-
 /**
  * @author Jeongjin Kim
  * @since 2017-09-01
