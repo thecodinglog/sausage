@@ -1,7 +1,6 @@
 package cothe.messaging.converter.policies.stringPolicies;
 
 import cothe.messaging.exceptions.DecodingException;
-import cothe.messaging.exceptions.UnsupportedFormatException;
 import cothe.messaging.model.DataElement;
 
 import java.nio.ByteBuffer;
@@ -38,18 +37,14 @@ public class FixedByteLengthRightPaddingStringPolicy extends PlainStringPolicy {
                     .onMalformedInput(CodingErrorAction.REPLACE)
                     .onUnmappableCharacter(CodingErrorAction.REPLACE);
 
-            CharBuffer charBuffer = null;
+            CharBuffer charBuffer;
             try {
                 charBuffer = charsetDecoder.decode(ByteBuffer.wrap(newByteStr));
             } catch (CharacterCodingException e) {
                 throw new DecodingException(e);
             }
 
-            if (charBuffer == null) {
-                convertedData = makeWhiteSpace(dataElement.getLength());
-            } else {
-                convertedData = charBuffer.toString();
-            }
+            convertedData = charBuffer.toString();
 
             //The length of the bytes may vary depending on the system and encoding.
             byte[] recheckByte = convertedData.getBytes(charset);

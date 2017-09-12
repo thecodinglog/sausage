@@ -18,23 +18,21 @@ import java.util.*;
 public class CompartmentalByteLengthString implements Compartmental<String> {
 
     final private String sourceString;
-    final private Iterable<Integer> roomSizeList;
     final private CharSequence delimiter;
 
     private List<String> elements;
 
     public CompartmentalByteLengthString(@NonNull String sourceString, Iterable<Integer> roomSizeList, CharSequence delimiter, Charset charset) {
         this.sourceString = sourceString;
-        this.roomSizeList = roomSizeList;
         this.delimiter = (delimiter == null) ? "" : delimiter;
         Charset charsetLocal = charset == null ? Charset.defaultCharset() : charset;
 
-        if (roomSizeList == null && (delimiter.toString().equals(""))) {
+        if (roomSizeList == null && (this.delimiter.toString().equals(""))) {
             throw new IllegalArgumentException("parameter 'roomSizeList' can't be null when 'delimiter' is empty");
         }
 
         if (this.delimiter.length() > 0) {
-            elements = Arrays.asList(sourceString.split(delimiter.toString()));
+            elements = Arrays.asList(sourceString.split(this.delimiter.toString()));
 
         } else {
             elements = new ArrayList<>();
@@ -45,28 +43,25 @@ public class CompartmentalByteLengthString implements Compartmental<String> {
 
             String convertedData;
 
-            CharsetDecoder charsetDecoder = charset.newDecoder();
+            CharsetDecoder charsetDecoder = charsetLocal.newDecoder();
             charsetDecoder
                     .onMalformedInput(CodingErrorAction.REPORT)
                     .onUnmappableCharacter(CodingErrorAction.REPORT);
 
-            for (Integer integer : this.roomSizeList) {
+            assert roomSizeList != null;
+            for (Integer integer : roomSizeList) {
 
                 try {
                     byte[] newByteStr = Arrays.copyOfRange(src, accIndex, accIndex + integer);
 
-                    CharBuffer charBuffer = null;
+                    CharBuffer charBuffer;
                     try {
                         charBuffer = charsetDecoder.decode(ByteBuffer.wrap(newByteStr));
                     } catch (CharacterCodingException e) {
                         throw new DecodingException(e);
                     }
 
-                    if (charBuffer == null) {
-                        convertedData = null;
-                    } else {
-                        convertedData = charBuffer.toString();
-                    }
+                    convertedData = charBuffer.toString();
 
                     elements.add(convertedData);
                     accIndex += integer;

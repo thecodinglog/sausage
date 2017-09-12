@@ -1,7 +1,6 @@
 package cothe.messaging.model;
 
 import lombok.Getter;
-import lombok.Setter;
 
 /**
  * @author Jeongjin Kim

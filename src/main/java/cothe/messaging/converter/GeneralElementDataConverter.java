@@ -48,7 +48,7 @@ public class GeneralElementDataConverter implements ElementDataConverter {
             if(data == null){
                 return null;
             }
-            return data.toString();
+            return data;
         }else{
             return convertingPolicy.convertBack(data, element, charset, locale);
         }
