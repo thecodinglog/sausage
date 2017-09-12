@@ -30,4 +30,12 @@ public class PlainNumberPolicy implements NumberPolicy {
             return String.valueOf((int) number);
         }
     }
+
+    @Override
+    public Object convertBack(String data, DataElement dataElement, Charset charset, Locale locale) {
+        if (data == null) {
+            return null;
+        }
+        return Double.parseDouble(data.trim());
+    }
 }

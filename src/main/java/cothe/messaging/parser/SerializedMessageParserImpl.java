@@ -44,11 +44,8 @@ public class SerializedMessageParserImpl implements MessageParser<String> {
                 , delimiter
                 , converter.getCharset());
 
-        for (FlatDataElement element : flatDataElements) {
-            if(compartmental.iterator().hasNext()){
-                result.put(element.getNewId(), converter.convertBack(element.getDataElement(), compartmental.iterator().next()));
-
-            }
+        for(int i=0; i<flatDataElements.size();i++){
+            result.put(flatDataElements.get(i).getNewId(), converter.convertBack(flatDataElements.get(i).getDataElement(),compartmental.get(i)));
         }
 
         return result;

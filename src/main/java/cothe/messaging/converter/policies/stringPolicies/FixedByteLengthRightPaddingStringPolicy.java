@@ -68,11 +68,6 @@ public class FixedByteLengthRightPaddingStringPolicy extends PlainStringPolicy {
         return convertedData;
     }
 
-    @Override
-    public <T> T convertBack(String data, DataElement dataElement, Charset charset, Locale locale) {
-
-        return null;
-    }
 
     private String makeWhiteSpace(int length) {
         StringBuilder sb = new StringBuilder(length);

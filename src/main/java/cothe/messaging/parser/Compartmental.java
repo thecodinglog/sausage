@@ -9,6 +9,7 @@ import java.nio.charset.Charset;
 public interface Compartmental<T> extends Iterable<T> {
     int getCompartmentSize();
     int getByteLength(Charset charset, boolean exceptDelimiter);
+    T get(int index);
 
 
 }

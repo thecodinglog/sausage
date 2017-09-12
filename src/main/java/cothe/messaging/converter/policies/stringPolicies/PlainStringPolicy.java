@@ -22,7 +22,11 @@ public class PlainStringPolicy implements StringPolicy {
     }
 
 
-
-
-
+    @Override
+    public Object convertBack(String data, DataElement dataElement, Charset charset, Locale locale) {
+        if (data == null) {
+            return null;
+        }
+        return data.trim();
+    }
 }

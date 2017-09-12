@@ -1,11 +1,14 @@
 package cothe.indi;
 
+import cothe.messaging.SerializedMessage;
 import cothe.messaging.model.ElementType;
 import cothe.messaging.binder.MessageBinder;
 import cothe.messaging.model.DataElement;
 import cothe.messaging.model.Element;
 import cothe.messaging.model.MessageMetadata;
 import cothe.messaging.model.StructureElement;
+import cothe.messaging.parser.MessageParser;
+import cothe.messaging.parser.SerializedMessageParserImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -69,7 +72,7 @@ public class ConvertTest {
         structureElement.addElement(new DataElement("wkCost", "작업비용", CURRENCY, 10, 0, "KRW"));
         structureElement.addElement(new DataElement("wkCostAvg", "평균비용", CURRENCY, 10, 0, "KRW"));
 
-        structureElement.addElement(structureElementG1);
+        //structureElement.addElement(structureElementG1);
 
         structureElement.addElement(new DataElement("coilWgt", "코일중량", NUMBER, 5, 0, "kg"));
         structureElement.addElement(new DataElement("coilThk", "코일두께", NUMBER, 5, 3, "mm"));
@@ -133,6 +136,18 @@ public class ConvertTest {
 
     }
 
+    @Test
+    public void bindAndParse(){
+        MessageBinder messageBinder = applicationContext.getBean("messageBinder", MessageBinder.class);
+        Message message = messageBinder.<String>bind(messageMetadata, dataSource);
+        System.out.println(message.getPayload());
+
+        MessageParser messageParser = applicationContext.getBean("messageParser", MessageParser.class);
+
+        Map<String, Object> result =  messageParser.<String>parse(messageMetadata, message);
+
+        result.forEach((s, o) -> System.out.println(s + ":" + o.toString()));
+    }
 
     @Test
     public void messageSizeCheck() {

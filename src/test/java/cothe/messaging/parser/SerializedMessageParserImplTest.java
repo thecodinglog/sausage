@@ -16,6 +16,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.nio.charset.Charset;
 import java.util.Arrays;
+import java.util.Map;
 
 import static cothe.messaging.model.ElementType.STRING;
 import static org.junit.Assert.*;
@@ -35,7 +36,7 @@ public class SerializedMessageParserImplTest {
 
         MessageMetadata messageMetadata = new MessageMetadata();
 
-        String dataSource = "abcd45한글 ";
+        String dataSource = "기계01CMV";
         StructureElement structureElement = new StructureElement();
         structureElement.addElement(new DataElement("cryMchNo", "운반기기번호", STRING, 6, 0, null));
         structureElement.addElement(new DataElement("cryMchTp", "운반기기구분", STRING, 1, 0, null));
@@ -48,9 +49,10 @@ public class SerializedMessageParserImplTest {
 
         SerializedMessageParserImpl smp = new SerializedMessageParserImpl(elementDataConverterSelector);
 
-        smp.parse(messageMetadata, new SerializedMessage(dataSource, null));
+        Map<String, Object> result = smp.parse(messageMetadata, new SerializedMessage(dataSource, null));
 
 
+        result.forEach((s, o) -> System.out.println(s + ":" + o.toString()));
         // Assert.assertEquals(3, compartmental.getCompartmentSize());
     }
 

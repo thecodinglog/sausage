@@ -59,7 +59,7 @@ public class SerializedMessageBinderImpl implements MessageBinder<String> {
                     if (element.getElementType() == ElementType.STRUCTURE) {
                         stringJoiner.merge(convertRouting((StructureElement) element, dataSource, converter, element, stackedId + "_" + element.getId() + "_" + String.valueOf(i)));
                     } else {
-                        System.out.println("Find Key : [" + stackedId + "_" + element.getId() + "_" + String.valueOf(i) + "]");
+                        //System.out.println("Find Key : [" + stackedId + "_" + element.getId() + "_" + String.valueOf(i) + "]");
                         String value = converter.convert((DataElement) element, dataSource.get(stackedId + "_" + element.getId() + "_" + String.valueOf(i)));
                         stringJoiner.add(value == null ? "" : value);
                     }
@@ -70,7 +70,7 @@ public class SerializedMessageBinderImpl implements MessageBinder<String> {
                 if (element.getElementType() == ElementType.STRUCTURE) {
                     stringJoiner.merge(convertRouting((StructureElement) element, dataSource, converter, element, element.getId()));
                 } else {
-                    System.out.println("Find Key : [" + element.getId() + "]");
+                    //System.out.println("Find Key : [" + element.getId() + "]");
                     String value = converter.convert((DataElement) element, dataSource.get(element.getId()));
                     stringJoiner.add(value == null ? "" : value);
                 }

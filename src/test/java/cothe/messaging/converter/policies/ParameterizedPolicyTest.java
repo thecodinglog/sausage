@@ -6,6 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.nio.charset.Charset;
 import java.util.Locale;
@@ -28,6 +30,7 @@ import java.util.Locale;
  * init method에 테스트할 Policy Instance를 할당해 줘야 함
  * @since 2017-09-07
  */
+
 @RunWith(Parameterized.class)
 public abstract class ParameterizedPolicyTest {
     protected ConvertingPolicy convertingPolicy;

@@ -16,11 +16,11 @@ public interface ConvertingPolicy {
         return convert(data, dataElement, null, null);
     }
 
-    default <T> T convertBack(final String data, final DataElement dataElement, final Charset charset, final Locale locale) {
+    default Object convertBack(final String data, final DataElement dataElement, final Charset charset, final Locale locale) {
         throw new UnsupportedOperationException();
     }
 
-    default <T> T convertBack(final String data, final DataElement dataElement) {
+    default Object convertBack(final String data, final DataElement dataElement) {
         return convertBack(data, dataElement, null, null);
     }
 }

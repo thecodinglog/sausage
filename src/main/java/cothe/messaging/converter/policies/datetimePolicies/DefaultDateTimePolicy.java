@@ -2,9 +2,11 @@ package cothe.messaging.converter.policies.datetimePolicies;
 
 import cothe.messaging.exceptions.UnsupportedFormatException;
 import cothe.messaging.model.DataElement;
+import lombok.Setter;
 
 import java.nio.charset.Charset;
 import java.text.ParseException;
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -13,6 +15,21 @@ import java.util.*;
  * @since 2017-08-25
  */
 public class DefaultDateTimePolicy implements DateTimePolicy {
+    @Setter
+    private String outputDatetimeFormat = "yyyyMMddHHmmssSSS";
+    @Setter
+    private List<String> formats = Arrays.asList(
+            "yyyy-MM-dd HH:mm:ss:SSS",
+            "yyyy-MM-dd HH:mm:ss,SSS",
+            "yyyy-MM-dd HH:mm:ss",
+            "yyyy-MM-dd HH:mm",
+            "yyyy-MM-dd",
+            "yyyyMMddHHmmssSSS",
+            "yyyyMMddHHmmss",
+            "yyyyMMddHHmm",
+            "yyyyMMdd"
+    );
+
     @Override
     public String convert(Object data, DataElement dataElement, Charset charset, Locale locale) {
         if (data == null) {
@@ -39,20 +56,7 @@ public class DefaultDateTimePolicy implements DateTimePolicy {
             substringLength = 0;
         }
 
-
-        SimpleDateFormat toDateFormat = new SimpleDateFormat("yyyyMMddHHmmssSSS");
-
-        List<String> formats = Arrays.asList(
-                "yyyy-MM-dd HH:mm:ss:SSS",
-                "yyyy-MM-dd HH:mm:ss,SSS",
-                "yyyy-MM-dd HH:mm:ss",
-                "yyyy-MM-dd HH:mm",
-                "yyyy-MM-dd",
-                "yyyyMMddHHmmssSSS",
-                "yyyyMMddHHmmss",
-                "yyyyMMddHHmm",
-                "yyyyMMdd"
-        );
+        SimpleDateFormat toDateFormat = new SimpleDateFormat(outputDatetimeFormat);
 
         String returnDatetime = null;
 
@@ -77,4 +81,24 @@ public class DefaultDateTimePolicy implements DateTimePolicy {
 
         return returnDatetime.substring(0, substringLength);
     }
+
+    @Override
+    public Object convertBack(String data, DataElement dataElement, Charset charset, Locale locale) {
+        if (data == null) {
+            return null;
+        }
+        data = data.trim();
+
+        Date returnDatetime = null;
+        for (String format : formats) {
+            SimpleDateFormat toDateFormat = new SimpleDateFormat(format);
+            returnDatetime = toDateFormat.parse(data, new ParsePosition(0));
+            if (returnDatetime != null)
+                break;
+        }
+
+
+        return returnDatetime;
+    }
+
 }

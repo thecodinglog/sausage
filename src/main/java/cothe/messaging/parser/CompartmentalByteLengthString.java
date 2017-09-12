@@ -110,6 +110,11 @@ public class CompartmentalByteLengthString implements Compartmental<String> {
     }
 
     @Override
+    public String get(int index) {
+        return elements.get(index);
+    }
+
+    @Override
     public Iterator<String> iterator() {
         return elements.iterator();
     }

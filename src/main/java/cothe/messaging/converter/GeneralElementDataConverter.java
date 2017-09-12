@@ -42,13 +42,13 @@ public class GeneralElementDataConverter implements ElementDataConverter {
     }
 
     @Override
-    public <T> T convertBack(DataElement element, String data) {
+    public Object convertBack(DataElement element, String data) {
         ConvertingPolicy convertingPolicy = policies.get(element.getElementType());
         if(convertingPolicy == null){
             if(data == null){
                 return null;
             }
-            return (T) data.toString();
+            return data.toString();
         }else{
             return convertingPolicy.convertBack(data, element, charset, locale);
         }

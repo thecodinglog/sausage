@@ -13,7 +13,7 @@ public class YNBooleanPolicy implements BooleanPolicy {
     @Override
     public String convert(Object data, DataElement dataElement, Charset charset, Locale locale) {
 
-        if(data == null){
+        if (data == null) {
             return "";
         }
 
@@ -29,6 +29,28 @@ public class YNBooleanPolicy implements BooleanPolicy {
             case "n":
             case "0":
                 return "N";
+            default:
+                throw new UnsupportedOperationException();
+        }
+    }
+
+    @Override
+    public Object convertBack(String data, DataElement dataElement, Charset charset, Locale locale) {
+        if (data == null) {
+            return "";
+        }
+
+        switch (data.toLowerCase().trim()) {
+            case "true":
+            case "yes":
+            case "y":
+            case "1":
+                return true;
+            case "false":
+            case "no":
+            case "n":
+            case "0":
+                return false;
             default:
                 throw new UnsupportedOperationException();
         }

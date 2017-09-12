@@ -24,4 +24,9 @@ public class DefaultCurrencyPolicy implements CurrencyPolicy {
         return data.toString();
 
     }
+
+    @Override
+    public Object convertBack(String data, DataElement dataElement, Charset charset, Locale locale) {
+        return data.trim();
+    }
 }

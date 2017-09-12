@@ -21,7 +21,7 @@ public class ElementDataConverterSelectorImpl implements ElementDataConverterSel
                 MessageMetadata messageMetadata = MessageMetadata.class.cast(objects[0]);
 
 
-                return converterMapper.get(messageMetadata.getDestinationSystemId()
+                return converterMapper.get(messageMetadata.getSourceSystemId()
                         + "|"
                         + messageMetadata.getDestinationSystemId());
             }

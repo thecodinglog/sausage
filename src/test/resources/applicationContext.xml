@@ -9,13 +9,18 @@
 >
     <bean id="booleanPolicy" class="cothe.messaging.converter.policies.booleanPolicies.YNBooleanPolicy"/>
     <bean id="currencyPolicy" class="cothe.messaging.converter.policies.currencyPolicies.DefaultCurrencyPolicy"/>
-    <bean id="datetimePolicy" class="cothe.messaging.converter.policies.datetimePolicies.DefaultDateTimePolicy"/>
+    <bean id="datetimePolicy" class="cothe.messaging.converter.policies.datetimePolicies.DefaultDateTimePolicy">
+    </bean>
+
     <bean id="numberPolicy" class="cothe.messaging.converter.policies.numberPolicies.PlainNumberPolicy"/>
     <bean id="stringPolicy" class="cothe.messaging.converter.policies.stringPolicies.PlainStringPolicy"/>
 
     <bean id="fixedLengthBooleanPolicy" class="cothe.messaging.converter.policies.booleanPolicies.FixedLengthRightPaddingYNBooleanPolicy"/>
     <bean id="fixedLengthCurrencyPolicy" class="cothe.messaging.converter.policies.currencyPolicies.FixedLengthLeftPaddingCurrencyPolicy"/>
-    <bean id="fixedLengthDatetimePolicy" class="cothe.messaging.converter.policies.datetimePolicies.FixedLengthRightPaddingDateTimePolicy"/>
+    <bean id="fixedLengthDatetimePolicy" class="cothe.messaging.converter.policies.datetimePolicies.FixedLengthRightPaddingDateTimePolicy">
+     <property name="outputDatetimeFormat" value="yyyy-MM-dd HH:mm:ss.SSS"/>
+    </bean>
+
     <bean id="fixedLengthNumberPolicy" class="cothe.messaging.converter.policies.numberPolicies.FixedLengthLeftPaddingNumberPolicy"/>
     <bean id="fixedLengthStringPolicy" class="cothe.messaging.converter.policies.stringPolicies.FixedByteLengthRightPaddingStringPolicy"/>
 
@@ -57,12 +62,18 @@
                 <entry key="MES|LGS" value-ref="fixedLengthElementDataConverter"/>
                 <entry key="LGS|MES" value-ref="fixedLengthElementDataConverter"/>
                 <entry key="MES|MES" value-ref="delimiterElementDataConverter"/>
+                <entry key="MES|MES" value-ref="delimiterElementDataConverter"/>
+
             </map>
         </property>
     </bean>
 
 
     <bean id="messageBinder" class="cothe.messaging.binder.SerializedMessageBinderImpl">
+        <constructor-arg name="elementDataConverterSelector" ref="elementDataConverterSelector"/>
+    </bean>
+
+    <bean id="messageParser" class="cothe.messaging.parser.SerializedMessageParserImpl">
         <constructor-arg name="elementDataConverterSelector" ref="elementDataConverterSelector"/>
     </bean>
 
