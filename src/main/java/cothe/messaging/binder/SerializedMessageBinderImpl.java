@@ -1,5 +1,7 @@
 package cothe.messaging.binder;
 
+import cothe.messaging.Message;
+import cothe.messaging.MessageHeaders;
 import cothe.messaging.model.ElementType;
 import cothe.messaging.SerializedMessage;
 import cothe.messaging.converter.ElementDataConverter;
@@ -10,8 +12,6 @@ import cothe.messaging.model.MessageMetadata;
 import cothe.messaging.model.StructureElement;
 import lombok.NonNull;
 import lombok.Setter;
-import org.springframework.messaging.Message;
-import org.springframework.messaging.MessageHeaders;
 
 import java.util.*;
 

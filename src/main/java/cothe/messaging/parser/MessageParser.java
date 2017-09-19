@@ -1,7 +1,7 @@
 package cothe.messaging.parser;
 
+import cothe.messaging.Message;
 import cothe.messaging.model.MessageMetadata;
-import org.springframework.messaging.Message;
 
 import java.util.Map;
 

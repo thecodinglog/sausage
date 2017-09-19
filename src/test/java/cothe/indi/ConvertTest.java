@@ -1,20 +1,14 @@
 package cothe.indi;
 
-import cothe.messaging.SerializedMessage;
-import cothe.messaging.model.ElementType;
+import cothe.messaging.Message;
 import cothe.messaging.binder.MessageBinder;
-import cothe.messaging.model.DataElement;
-import cothe.messaging.model.Element;
-import cothe.messaging.model.MessageMetadata;
-import cothe.messaging.model.StructureElement;
+import cothe.messaging.model.*;
 import cothe.messaging.parser.MessageParser;
-import cothe.messaging.parser.SerializedMessageParserImpl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.messaging.Message;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -72,7 +66,7 @@ public class ConvertTest {
         structureElement.addElement(new DataElement("wkCost", "작업비용", CURRENCY, 10, 0, "KRW"));
         structureElement.addElement(new DataElement("wkCostAvg", "평균비용", CURRENCY, 10, 0, "KRW"));
 
-        //structureElement.addElement(structureElementG1);
+        structureElement.addElement(structureElementG1);
 
         structureElement.addElement(new DataElement("coilWgt", "코일중량", NUMBER, 5, 0, "kg"));
         structureElement.addElement(new DataElement("coilThk", "코일두께", NUMBER, 5, 3, "mm"));
@@ -81,7 +75,7 @@ public class ConvertTest {
         structureElement.addElement(new DataElement("yOffset", "y축옵셋", NUMBER, 10, 1, "mm"));
 
         //structureElement.addElement(structureElementG1);
-        //structureElement.addElement(structureElementG2);
+        structureElement.addElement(structureElementG2);
 
         messageMetadata.setDestinationSystemId("LGS");
         messageMetadata.setSourceSystemId("MES");

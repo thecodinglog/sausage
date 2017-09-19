@@ -2,24 +2,18 @@ package cothe.messaging.parser;
 
 import cothe.messaging.SerializedMessage;
 import cothe.messaging.converter.ElementDataConverterSelector;
-import cothe.messaging.converter.ElementDataConverterSelectorImpl;
 import cothe.messaging.model.DataElement;
 import cothe.messaging.model.MessageMetadata;
 import cothe.messaging.model.StructureElement;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.Message;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import java.nio.charset.Charset;
-import java.util.Arrays;
 import java.util.Map;
 
 import static cothe.messaging.model.ElementType.STRING;
-import static org.junit.Assert.*;
 
 /**
  * @author Jeongjin Kim

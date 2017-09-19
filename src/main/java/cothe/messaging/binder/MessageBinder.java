@@ -1,8 +1,8 @@
 package cothe.messaging.binder;
 
 
+import cothe.messaging.Message;
 import cothe.messaging.model.MessageMetadata;
-import org.springframework.messaging.Message;
 
 import java.util.Map;
 

@@ -59,7 +59,6 @@
                 <entry key="MES|LGS" value-ref="fixedLengthElementDataConverter"/>
                 <entry key="LGS|MES" value-ref="fixedLengthElementDataConverter"/>
                 <entry key="MES|MES" value-ref="delimiterElementDataConverter"/>
-                <entry key="MES|MES" value-ref="delimiterElementDataConverter"/>
 
             </map>
         </property>

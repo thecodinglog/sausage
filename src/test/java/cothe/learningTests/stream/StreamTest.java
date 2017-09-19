@@ -1,21 +1,13 @@
 package cothe.learningTests.stream;
 
 import cothe.messaging.model.DataElement;
-import cothe.messaging.model.MessageMetadata;
 import cothe.messaging.model.StructureElement;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static cothe.messaging.model.ElementType.*;
-import static cothe.messaging.model.ElementType.CURRENCY;
-import static cothe.messaging.model.ElementType.NUMBER;
 import static java.util.stream.Collectors.toList;
 
 /**

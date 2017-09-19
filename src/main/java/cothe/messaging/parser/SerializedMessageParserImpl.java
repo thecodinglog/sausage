@@ -1,11 +1,11 @@
 package cothe.messaging.parser;
 
+import cothe.messaging.Message;
 import cothe.messaging.converter.ElementDataConverter;
 import cothe.messaging.converter.ElementDataConverterSelector;
 import cothe.messaging.model.*;
 import lombok.NonNull;
 import lombok.Setter;
-import org.springframework.messaging.Message;
 
 import java.util.*;
 

@@ -1,7 +1,5 @@
 package cothe.messaging;
 
-import org.springframework.messaging.Message;
-import org.springframework.messaging.MessageHeaders;
 
 /**
  * @author Jeongjin Kim

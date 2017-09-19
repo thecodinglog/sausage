@@ -1,13 +1,7 @@
 package cothe.messaging.converter.policies.datetimePolicies;
 
-import cothe.messaging.converter.policies.ConvertingPolicy;
 import cothe.messaging.converter.policies.ParameterizedPolicyTest;
-import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.Arrays;
 import java.util.Collection;
