@@ -20,4 +20,9 @@ dependencies {
     compile 'org.apache.commons:commons-lang3:3.6'
 
 
+// https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
+    compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.3'
+
+
+
 }

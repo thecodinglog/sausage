@@ -1,4 +1,4 @@
-package cothe.messaging.inbound;
+package cothe.messaging.outbound;
 
 import cothe.messaging.Message;
 
